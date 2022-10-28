@@ -144,13 +144,13 @@ The following instructions are based on using Ubuntu as the system and GitHub as
         </flowPersistenceProvider>
         -->
         
-        <flowPersistenceProvider>
+        <flowPersistenceProvider>n
             <class>org.apache.nifi.registry.provider.flow.git.GitFlowPersistenceProvider</class>
-            <property name="Flow Storage Directory">/mnt/c/Users/febarusco/VSCode/apache-nifi-fdlc/flow_storage</property>
+            <property name="Flow Storage Directory">./apache-nifi-fdlc</property>
             <property name="Remote To Push">origin</property>
-            <property name="Remote Access User">fbarusco@gmail.com</property>
-            <property name="Remote Access Password">PERSONAL_ACCESS_TOKEN_HERE</property>
-            <property name="Remote Clone Repository"></property>
+            <property name="Remote Access User">fedebarusco</property>
+            <property name="Remote Access Password">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</property>
+            <property name="Remote Clone Repository">https://github.com/fedebarusco/apache-nifi-fdlc.git</property>
         </flowPersistenceProvider>
         
         <!--
@@ -245,6 +245,10 @@ On Ubuntu systems proceed as follows:
 2. Unzip the downloaded package:
     ```console
     unzip nifi-registry-1.18.0-bin.zip
+    ```
+3. Move to the _nifi-registry-1.18.0/bin_ folder and edit the _nifi-registry-env.sh_ script by adding the following ling:
+    ```console
+    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
     ```
 3. Move to the _nifi-registry-1.18.0/bin_ folder and start NiFi registry:
     ```console
