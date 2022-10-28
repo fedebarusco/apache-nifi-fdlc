@@ -120,6 +120,92 @@ On Ubuntu systems proceed as follows:
     ```
 7. Reboot the system to terminate the Java setup procedure
 
+#### Preconditions: Git Repository
+The following instructions are based on using Ubuntu as the system and GitHub as the hosting service of the Git repository. In this case, proceed as follows: 
+1. Navigate to your GitHub profile and create a new repository
+2. Clone the repository
+3. Go back to the developer setting in GitHub and create a new personal access token 
+4. Copy the generated token 
+5. Go back to the Apache NiFi Registry installation directory
+6. Edit the _conf/providers.xml_ by changing the _flowPersistenceProvider_ class to the _GitFlowPersistenceProvider_ and set it to point the cloned repository in the following way:       
+    ```xml
+    <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    ...
+    <providers>
+
+        <!--
+        ...
+        -->
+
+        <!--
+        <flowPersistenceProvider>
+            <class>org.apache.nifi.registry.provider.flow.FileSystemFlowPersistenceProvider</class>
+            <property name="Flow Storage Directory">./flow_storage</property>
+        </flowPersistenceProvider>
+        -->
+        
+        <flowPersistenceProvider>
+            <class>org.apache.nifi.registry.provider.flow.git.GitFlowPersistenceProvider</class>
+            <property name="Flow Storage Directory">/mnt/c/Users/febarusco/VSCode/apache-nifi-fdlc/flow_storage</property>
+            <property name="Remote To Push">origin</property>
+            <property name="Remote Access User">fbarusco@gmail.com</property>
+            <property name="Remote Access Password">PERSONAL_ACCESS_TOKEN_HERE</property>
+            <property name="Remote Clone Repository"></property>
+        </flowPersistenceProvider>
+        
+        <!--
+        <flowPersistenceProvider>
+            <class>org.apache.nifi.registry.provider.flow.DatabaseFlowPersistenceProvider</class>
+        </flowPersistenceProvider>
+        -->
+
+        <!--
+        <eventHookProvider>
+            ...
+        </eventHookProvider>
+        -->
+
+        <extensionBundlePersistenceProvider>
+            <class>org.apache.nifi.registry.provider.extension.FileSystemBundlePersistenceProvider</class>
+            <property name="Extension Bundle Storage Directory">./extension_bundles</property>
+        </extensionBundlePersistenceProvider>
+
+        <!--
+        <extensionBundlePersistenceProvider>
+            ...
+        </extensionBundlePersistenceProvider>
+        -->
+
+    </providers>
+    ```
+7. start NiFi registry:
+    ```console
+    sudo bin/nifi-registry.sh start
+    ``` 
+4. To monitor the application log execute the following command: 
+    ```console
+    tail -f ../logs/nifi-registry-app.log
+    ```
+6. Wait for NiFi Registry to start (this may take some time)
+8. Access the Apache NiFi Registry UI from the browser at the following link: http://127.0.0.1:18080/nifi-registry
+9. Navigate to Settings to create a new bucket 
+10. Start up the NiFi by moving to the _nifi-1.18.0/bin_ folder and executing the following command: 
+    ```console
+    sudo ./nifi.sh start
+    ```
+11. Access the Apache NiFi UI from the browser at the following link: https://127.0.0.1:8443/nifi/
+12. Register the new registry client by navigating to the Controller Settings from the global menu. 
+13. Set the _URL_ registry client property by pointing to the following URL: http://127.0.0.1:18080/
+14. From the NiFi canvas, drop a new Processor Group and 'Start version control' from the menu
+-  
+
+Se hai precedentemente fermato NiFi e hai dimenticato il nome utente e la password generata automaticamente, la puoi recuperare dai log generati al momento dell'installazione, ad esempio: 
+    ```console
+    cat logs/nifi-app_2022-10-27_17.0.log | grep 'Generated'
+    ```
+E' comunque consigliato di generare le proprie password nel seguente modo..
+
+More details: https://nifi.apache.org/docs/nifi-registry-docs/html/administration-guide.html#gitflowpersistenceprovider 
 #### Apache NiFi Installation
 On Ubuntu systems proceed as follows: 
 1. Download the package as follows:
