@@ -27,17 +27,21 @@ Project name: Apache NiFi - Flow Development Life Cycle
 
 
 ## General Information
-The purpose of this Apache NiFi project is to implement a Flow Development Life Cycle from the local environment to the development environment deployed on OpenShift platform.  
+The purpose of this Apache NiFi project is to implement a Flow Development Life Cycle from the local to the development environment deployed on OpenShift platform.  
 The flow is as follows (below are the details about each step): 
 1. The developer produce a new flow that will be pushed in a git repository 
 2. Jenkins .. 
 
 ### Apache NiFi Basic Concept
-The requests coming from the front-end will be POST requests and inside the body it will be specified:
-* _flow_: the service to contact depending on the use case
-* _processor_: the endpoint to forward the request to (multiple endpoints will be available for each service)
-* _processor group_: the request method to send to the endpoint (get, post, etc.)
-* _input_: any parameters to pass as input to the machine learning model (parameter names must be specified UPPER CASE)
+Apache NiFi is a dataflow system based on the concepts of flow-based programming. It supports powerful and scalable directed graphs of data routing, transformation, and system mediation logic. NiFi has a web-based user interface for design, control, feedback, and monitoring of dataflows. 
+The main components of an Apache NiFi dataflow are:
+* _FlowFile_: Each piece of data that the user brings into NiFi for processing and distribution is referred to as a FlowFile. A FlowFile is made up of two parts: Content (the data itself) and Attributes, which are key-value pairs that are associated with the Content. 
+* _Processor_: The Processor is the NiFi component that is used to listen for incoming data; pull data from external sources; publish data to external sources; and route, transform, or extract information from FlowFiles.
+* _Process Group_: When a dataflow becomes complex, it often is beneficial to reason about the dataflow at a higher, more abstract level. NiFi allows multiple components, such as Processors, to be grouped together into a Process Group. 
+* _Relationship_: Each Processor has zero or more Relationships defined for it. These Relationships are named to indicate the result of processing a FlowFile. After a Processor has finished processing a FlowFile, it will route (or “transfer”) the FlowFile to one of the Relationships.
+* _Controller Service_: Controller Services are extension points that, after being added and configured by a DataFlow Manager (DFM) in the User Interface, will start up when NiFi starts up and provide information for use by other components (such as processors or other controller services). For instance, the StandardSSLContextService provides the ability to configure keystore and/or truststore properties once and reuse that configuration throughout the application. The idea is that, rather than configure this information in every processor that might need it, the controller service provides it for any processor to use as needed.
+
+For more details about Apache NiFi terminology, refer to the official [User Guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html#terminology).
 
 ## Setup
 <!---
@@ -218,10 +222,10 @@ Provide various use cases and code examples here.
 -->
 
 ## Deploy
-Four enviroments are defined: development, staging, production.  
+Three enviroments are defined: development, staging, production.  
 To deploy on devevelpment environment proceed as follows:
-1) tag develop branch using semantic versioning followed by _svil suffix (ex. 1.0.15_svil). 
-2) On [Jenkins](https://jenkins-1499-ci-cd.apps.ocp.snamretegas.priv/) select CI folder, gnc-proxy pipeline, execute compilation manually and the service is deployed in dev
+1) Tag develop branch using semantic versioning 
+2) On [Jenkins](https://www.jenkins.io/) ..
  
 ## Room for Improvement
 - Add healthcheck 
