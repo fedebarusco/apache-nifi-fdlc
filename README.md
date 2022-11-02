@@ -54,14 +54,14 @@ The following instructions will install Apache NiFi 1.18.0 and Apache NiFi Regis
 
 ### Local
 
-The following instructions are based on Ubuntu operating system and GitHub as the hosting service of the git repository.
+The following instructions are based on Ubuntu 22.04.1 LTS operating system and GitHub as the hosting service of the git repository.
 
 #### Preconditions: Java
 
 On Ubuntu systems proceed as follows: 
-1. Download and install openjdk-8-jdk:
+1. Download and install openjdk-11-jre:
     ```console
-    sudo apt-get install openjdk-8-jdk
+    sudo apt-get install openjdk-11-jre
     ```
 2. Verify that the installation was successful: 
     ```console
@@ -73,7 +73,7 @@ On Ubuntu systems proceed as follows:
     ```
 4. Edit the _~/.bashrc_ file by adding the following line with the path returned by the previous command, for instance: 
     ```console
-    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+    export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
     ```
 5. Read and execute the content of the  _~/.bashrc_ edited file: 
     ```console
@@ -98,7 +98,7 @@ On Ubuntu systems proceed as follows:
     ```
 3. Move to the _nifi-1.18.0/bin_ folder and edit the _nifi-env.sh_ script by adding the following line:
     ```console
-    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+    export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
     ```
 
 #### Apache NiFi Registry Installation
@@ -114,7 +114,7 @@ On Ubuntu systems proceed as follows:
     ```
 3. Move to the _nifi-registry-1.18.0/bin_ folder and edit the _nifi-registry-env.sh_ script by adding the following line:
     ```console
-    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+    export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
     ```
 
 #### Apache NiFi Registry Setup
@@ -220,6 +220,41 @@ Provide various use cases and code examples here.
 
 `write-your-code-here`
 -->
+
+On Ubuntu systems proceed as follows: 
+1. Download the package as follows:
+    ```console
+    curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+    ```
+    ```console
+    echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+    ```
+    ```console
+    sudo apt-get update && sudo apt-get install jenkins
+    ```
+2. Verify that the installation was successful: 
+    ```console
+    jenkins --version
+    ```
+3. Enable the Jenkins service to start at boot:
+    ```console
+    sudo systemctl enable jenkins
+    ```
+4. start the Jenkins service with the command:
+    ```console
+    sudo systemctl start jenkins
+    ```
+5. check the status of the Jenkins service with the following command: 
+    ```console
+    sudo systemctl status jenkins
+    ```
+6. Retrieve the initial admin password with the following command: 
+    ```console
+    sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+    ```
+7. Browse to [http://localhost:8080](http://localhost:8080) (or whichever configured port during Jenkins installation) and complete the initial setup with the plugins installation and the creation of the first administrator user. 
+
+*Notes*: For WSL2 users, instead of using the ```systemctl``` command, simply use ```service```, for instance: ```sudo service jenkins start```
 
 ## Deploy
 Three enviroments are defined: development, staging, production.  
