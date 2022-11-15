@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Annotation profile for nifi-customprocessor-bundle" enabled="true">
+        <sourceOutputDir name="../../../../../../../../wsl$/Ubuntu-22.04/home/febarusco/MiC/nifi-registry-1.18.0/apache-nifi-fdlc/CustomProcessor/nifi-customprocessor-bundle/nifi-customprocessor-processors/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../../../../../../../wsl$/Ubuntu-22.04/home/febarusco/MiC/nifi-registry-1.18.0/apache-nifi-fdlc/CustomProcessor/nifi-customprocessor-bundle/nifi-customprocessor-processors/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="nifi-customprocessor-processors" />
+      </profile>
+      <profile name="Annotation profile for nifi-customprocessor-nar" enabled="true">
+        <sourceOutputDir name="../../../../../../../../wsl$/Ubuntu-22.04/home/febarusco/MiC/nifi-registry-1.18.0/apache-nifi-fdlc/CustomProcessor/nifi-customprocessor-bundle/nifi-customprocessor-nar/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../../../../../../../wsl$/Ubuntu-22.04/home/febarusco/MiC/nifi-registry-1.18.0/apache-nifi-fdlc/CustomProcessor/nifi-customprocessor-bundle/nifi-customprocessor-nar/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="nifi-customprocessor-nar" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="nifi-customprocessor-bundle" target="1.5" />
+      <module name="nifi-customprocessor-nar" target="1.5" />
+      <module name="nifi-customprocessor-processors" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

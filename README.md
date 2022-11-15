@@ -16,6 +16,7 @@ Project name: Apache NiFi - Flow Development Life Cycle
         * [Apache NiFi Registry Installation](#apache-nifi-registry-installation)
         * [Apache NiFi Registry Setup](#apache-nifi-registry-setup)
     * [Jenkins](#jenkins)
+* [Apache NiFi Development](#apache-nifi-development)
 * [Deploy](#deploy)
 * [Room for Improvement](#room-for-improvement)
 <!-- * [License](#license) -->
@@ -255,6 +256,56 @@ On Ubuntu systems proceed as follows:
 7. Browse to [http://localhost:8080](http://localhost:8080) (or whichever configured port during Jenkins installation) and complete the initial setup with the plugins installation and the creation of the first administrator user. 
 
 *Notes*: For WSL2 users, instead of using the ```systemctl``` command, simply use ```service```, for instance: ```sudo service jenkins start```
+
+## Apache NiFi Development
+
+Apache NiFi comes with a variety of Processors (basic building block for creating an Apache NiFi dataflow) providing a easy way to consume, get, convert, listen, publish, put, query data. Moreover, NiFi includes a set of Controller Services that are used for a variety of system focused data flow business requirements.
+
+Even with all of those processors and controller services available out of the box, there are many situations where a custom processor or controller service is required in order to satisfy specific requirements.
+
+Processors provide an interface through which NiFi provides access to a flowfile, its attributes and its content. Writing your own custom processor provides a way to perform different operations or to transform flowfile content according to specfic needs.
+
+A NiFi Controller Service provides a shared starting point and functionality across Processors, other ControllerServices, and ReportingTasks within a single JVM. Controllers are used to provide shared resources, such as a database, ssl context, or a server connection to an external server and much more.
+
+## Apache NiFi Custom Processor
+
+On Ubuntu systems proceed as follows: 
+1. If not already installed, update package index and install Maven as follows:
+    ```console
+    sudo apt update
+    ```
+    ```console
+    sudo apt install maven
+    ```
+2. Verify that the installation was successful: 
+    ```console
+    mvn -v
+    ```
+3. Create a folder that will contain the custom processor code to develop and within this folder create the project through the NiFi archetype: 
+    ```console
+    mvn archetype:generate -DarchetypeGroupId=org.apache.nifi -DarchetypeArtifactId=nifi-processor-bundle-archetype -DarchetypeVersion=1.18.0
+    ```
+    For more versions and details refer to the official [Maven repository](https://mvnrepository.com/artifact/org.apache.nifi/nifi-processor-bundle-archetype).
+4. When prompted enter the required properties for the maven project and confirm, e.g.: 
+    ```console
+    Define value for property 'groupId': org.apache.nifi.processors.customprocessor
+    Define value for property 'artifactId': nifi-customprocessor-bundle
+    Define value for property 'version' 1.0-SNAPSHOT: 1.0
+    Define value for property 'package' org.apache.nifi.processors.customprocessor.processors.customprocessor: org.apache.nifi.processors.customprocessor
+    ```
+5. After completing the steps, a maven project with default _CustomProcessor_ will be created, then move to the processor project directory and build the project, e.g.:
+    ```console
+    cd CustomProcessor
+    mvn clean install
+    ```
+6. To deploy it in NiFi, copy the build _nifi-customprocessor-nar-1.0.nar_ file to NiFi _nifi-1.18.0/lib_ directory:
+    ```console
+    cp nifi-customprocessor-bundle/nifi-customprocessor-nar/target/nifi-customprocessor-nar-1.0.nar NIFI_HOME/lib
+    ```
+7. Move to the _nifi-1.18.0/bin_ folder and start up NiFi: 
+    ```console
+    sudo ./nifi.sh start
+    ```
 
 ## Deploy
 Three enviroments are defined: development, staging, production.  

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/CustomProcessor.iml" filepath="$PROJECT_DIR$/.idea/CustomProcessor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nifi-customprocessor-bundle/nifi-customprocessor-bundle.iml" filepath="$PROJECT_DIR$/nifi-customprocessor-bundle/nifi-customprocessor-bundle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nifi-customprocessor-bundle/nifi-customprocessor-nar/nifi-customprocessor-nar.iml" filepath="$PROJECT_DIR$/nifi-customprocessor-bundle/nifi-customprocessor-nar/nifi-customprocessor-nar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nifi-customprocessor-bundle/nifi-customprocessor-processors/nifi-customprocessor-processors.iml" filepath="$PROJECT_DIR$/nifi-customprocessor-bundle/nifi-customprocessor-processors/nifi-customprocessor-processors.iml" />
+    </modules>
+  </component>
+</project>
